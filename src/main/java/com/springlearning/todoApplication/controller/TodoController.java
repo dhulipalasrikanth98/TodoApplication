@@ -9,6 +9,7 @@ import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -42,7 +43,7 @@ public class TodoController {
 	@RequestMapping(value = "/todo/add", method = RequestMethod.POST)
 	public String redirectToList(ModelMap model, @Valid Todo todo, BindingResult br) {
 		if (!br.hasErrors()) {
-			todoService.addToTodoList(getLoggedInUser(), todo.getDescription(), todo.getTarget(), todo.isDone());
+			todoService.addToTodoList(getLoggedInUser(), todo);
 			return "redirect:/todo/lists";
 		} else
 			return "addtodo";
@@ -82,5 +83,5 @@ public class TodoController {
 		System.out.println("loggedIn user " + username);
 		return username;
 	}
-
+	
 }
